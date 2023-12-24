@@ -1,0 +1,68 @@
+{
+  "name": "joyson",
+  "version": "0.12.8",
+  "description": "JOYFUL JSON | A smarter approach to encode/decode more, faster!",
+  "devDependencies": {
+    "path": "~0.12.7",
+    "uglifyjs-3-webpack-plugin": "~1.2.4",
+    "webpack": "~4.37.0",
+    "webpack-cli": "~4.10.0",
+    "babel-loader": "~8.3.0",
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6"
+  },
+  "dependencies": {
+    "chromium-base64": "^0.4.1"
+  },
+  "build": {},
+  "author": "Affolter Matias",
+  "keywords": [
+    "json",
+    "JSON",
+    "structured",
+    "clone",
+    "assert",
+    "ubson",
+    "json",
+    "cborg",
+    "cbor-x",
+    "serializer",
+    "deserializer",
+    "parse",
+    "stringify",
+    "pack",
+    "unpack",
+    "encode",
+    "decode",
+    "buffer",
+    "string",
+    "b64",
+    "64",
+    "Jsonp",
+    "json-js",
+    "base",
+    "encoder",
+    "decoder",
+    "javascript",
+    "js",
+    "encode",
+    "decode",
+    "byte",
+    "bytes",
+    "Byte",
+    "Bytes",
+    "fast",
+    "optimization",
+    "efficiency",
+    "performance",
+    "msgpackr"
+  ],
+  "scripts": {
+    "build": "NODE_ENV=production webpack --node-env \"production\""
+  },
+  "license": "MIT",
+  "repository": {},
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}

@@ -1,0 +1,1 @@
+window.JOYSON = require("./index.js").default;
