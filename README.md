@@ -44,11 +44,11 @@ import JOYSON from 'joyson';
 ### Encoding/Decoding an Object
 
 ```javascript
-const yourObject = {test: "hello", data: [1, 23, 5, 6, {arr: Int16Array.of(-6, 777, 12), arr2: new Uint8Array(9)}]};
-const encodedData = JOYSON.stringify(yourObject); // `{"test":"hello","data":[1,23,5,6,{"#I2Fycg==":"data:joyson/int16array;base64,+v8JAwwA","#I2FycjI=":"data:joyson/uint8array;base64,AAAAAAAAAAAA"}]}`
-const decodedData = JOYSON.parse(encodedData);
+const object = {test: "hello", data: [1, 23, 5, 6, {"##": undefined, "##test": /regex/i, date: new Date(), table: [-0, 111111111n, -666.777, new Set([1, 2, "blue", {}]), new Map()], arr: Int16Array.of(-6, 777, 12), arr2: new Uint8Array(9)}, "hello here is asaitama I love JS"]};
+const encoded = JOYSON.stringify(object); // `{"test":"hello","data":[1,23,5,6,{"#$IyM=":"data:joyson/undefined;","#$IyN0ZXN0":"data:joyson/regexp;cmVnZXg=:aQ==","##date":"data:joyson/date;2023-12-25T00:33:37.935Z","table":["data:joyson/number;-0","data:joyson/bigint;111111111",-666.777,"data:joyson/set;WzEsMiwiYmx1ZSIse31d","data:joyson/map;W10="],"##arr":"data:joyson/int16array;base64,+v8JAwwA","##arr2":"data:joyson/uint8array;base64,AAAAAAAAAAAA"},"hello here is asaitama I love JS"]}`
+const decoded = JOYSON.parse(encoded);
 
-console.log(yourObject, encodedData, decodedData);
+console.log(object, encoded, decoded);
 ```
 
 ### Packing/Unpacking Data
