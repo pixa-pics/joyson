@@ -1,7 +1,7 @@
 {
   "name": "joyson",
-  "version": "0.12.8",
-  "description": "JOYFUL JSON | A smarter approach to encode/decode more, faster!",
+  "version": "0.12.9",
+  "description": "JOYFUL JSON | A smarter approach to serialize more than JSON, faster than ever!",
   "devDependencies": {
     "path": "~0.12.7",
     "uglifyjs-3-webpack-plugin": "~1.2.4",
@@ -61,7 +61,10 @@
     "build": "NODE_ENV=production webpack --node-env \"production\""
   },
   "license": "MIT",
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixa-pics/joyson.git"
+  },
   "engines": {
     "node": ">=0.8.0"
   }

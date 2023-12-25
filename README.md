@@ -1,17 +1,25 @@
-# joyson
+# JOYSON
+
+![JOYSON LOGO](https://raw.githubusercontent.com/pixa-pics/joyson/main/logo.png)
 
 `joyson` is a JavaScript module designed for efficient encoding and decoding of JSON objects, particularly adept at handling TypedArrays. Unlike standard JSON methods, `joyson` provides additional `pack` and `unpack` methods for more memory-efficient handling of large data structures, including support for binary data serialization.
+
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
 ## Key Differences
 
 - **Standard JSON Methods**: `stringify` and `parse` convert objects to/from JSON strings.
 - **Extended Binary Methods**: `pack` and `unpack` handle serialization/deserialization of data into/from a compact binary format, beneficial for performance-intensive applications.
 
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
+
 ## Features
 
 - **TypedArray Support**: Seamless encoding and decoding of TypedArrays within JSON objects.
 - **Memory Efficiency**: Optimized for minimal memory footprint during processing.
 - **Binary Serialization**: The `pack` method allows for compact binary serialization of data, while `unpack` restores it, ensuring efficient data handling.
+
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
 ## Installation
 
@@ -20,6 +28,8 @@ Install `joyson` using npm:
 ```bash
 npm install joyson
 ```
+
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
 ## Usage
 
@@ -50,6 +60,9 @@ const unpackedData = JOYSON.unpack(packedData);
 
 console.log(packedData, unpackedData);
 ```
+
+
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
 ## Capabilities
 
@@ -239,68 +252,54 @@ console.log(packedData, unpackedData);
 | Total  time (ms)    | 139.1 | 791.4 (100%)         | 1109.6 (140%) | 1517.4 (191%) | 1676.1 (211%) | 9437.6 (1193%) | 5364.9 (678%)    |
 | Used size (bytes)   | N/A | 41684                | 33983         | 29105         | 37715         | 43431          | 43276            |
 
-# 📝 JoyfulSerial Class Documentation
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
-## Overview 🌐
-`JoyfulSerial` is an advanced JavaScript class designed for efficient serialization and deserialization of various data types, including complex objects, arrays, and primitive data types. It features a robust handling of data types and offers a streamlined approach for converting data to and from binary formats.
+## JoyfulSerial Class Documentation
 
-## Class Structure 🏗️
+## Overview
+`JoyfulSerial` is a comprehensive class for serializing and deserializing complex data types. It supports various data types including `ArrayBuffer`, `TypedArray`, and complex objects. The class is designed for efficient data handling with methods for packing and unpacking data, as well as converting data to and from JSON format.
 
-### Constructor 🛠️
-- `constructor()`: Initializes the class with a set of private properties for data storage and type handling.
+### Constructor
+- `constructor()`: Initializes the class with necessary properties and setup for data handling.
 
-### Properties 🔍
-- `_bodyBuffers`, `_bodyBufferRef`, `_bodyBufferOffset`: Arrays and buffer references for serialized data. (Private)
-- `_packBufferTemp32`, `_packBufferTemp8`: Temporary buffers for packing data. (Private)
-- `_headerByteLength`, `_offset`: Variables for managing data offsets and header lengths. (Private)
-- `_typedArrayTypes`, `errorTypes`: Arrays holding various typed array types and error types. (Private)
-- `_typedArrayConstructor`, `_errorConstructor`: Arrays of constructors for typed arrays and error types. (Private)
-- `_typedArrayConstructorSet`, `_typedArrayConstructorMap`, `_errorConstructorMap`: Sets and maps for constructor lookup. (Private)
-- `_b64`, `_b64Base64ToBytes`, `_b64BytesToBase64`: B64chromium instance and methods for Base64 operations. (Private)
-- `_textDecoder`, `_textDecoderFunction`: TextDecoder instance and its method. (Private)
-- `_textEncoder`, `_textEncoderFunction`, `_textEncoderIntoFunction`: TextEncoder instance and its methods. (Private)
-- `_hashtagCharCode`, `_startWithJoyson`: Character code for hashtag and a byte array representing "data:joyson". (Private)
+### Properties
+- `_bodyBuffers`: An array to store serialized data. \(Private\)
+- `_bodyBufferRef`: An ArrayBuffer for reference during unpacking. \(Private\)
+- `_bodyBufferOffset`, `_packBufferTemp32`, `_packBufferTemp8`, `_headerByteLength`, `_offset`: Various buffers and counters for data processing. \(Private\)
+- `_typedArrayTypes`, `_typedArrayConstructor`, `_typedArrayConstructorSet`, `_typedArrayConstructorMap`: Collections for handling different typed arrays. \(Private\)
+- `errorTypes`, `_errorConstructor`, `_errorConstructorMap`: Collections for handling different error types. \(Private\)
+- `_b64`, `_b64Base64ToBytes`, `_b64BytesToBase64`: Base64 encoding and decoding utilities. \(Private\)
+- `_textDecoder`, `_textDecoderFunction`, `_textEncoder`, `_textEncoderFunction`, `_textEncoderIntoFunction`: Text encoding and decoding utilities. \(Private\)
+- `_hashtagCharCode`, `_startWithJoyson`: Utilities for string processing. \(Private\)
 
-### Methods 🛠️
+### Private Methods
+- `_getComparator()`, `_getTypedConstructorNameLowerCase(value)`, `_stringifyOther(data)`, `_isError(value)`, `_isArrayBuffer(value)`, `_isTypedArray(value)`, `_stringifyArrayBuffer(arrayBuffer)`, `_stringifyTypedArray(typedArray)`, `_stringifyError(error)`, `_stringifyThis(data)`, `_stringifyObject(obj)`, `_stringifyNumber(data)`, `_dataStartsWithJoyson(data)`, `_parseThis(data, probablyDecode)`, `_parseObject(obj)`, `_parseNumber(encodedNumber)`, `_parseArrayBuffer(encodedString)`, `_parseTypedArray(encodedString)`, `_parseError(ref)`, `_packThis(data)`, `_getBytePadding(length)`, `_packArrayBuffer(arrayBuffer)`, `_packTypedArray(typedArray)`, `_packError(error)`, `_packObject(obj)`, `_packNumber(data)`, `_packOther(data)`, `_createPackedData(header)`, `_combineBuffers()`, `_unpackNumber(encodedNumber)`, `_unpackThis(data, probablyDecode)`, `_unpackArrayBuffer(ref)`, `_unpackError(ref)`, `_unpackTypedArray(ref, typeInfo)`, `_keyMustDecode(key)`, `_keyStartsWithDecode(key)`, `_unpackObject(obj)`: Various utility methods for processing and handling data. \(Private\)
 
-#### Serialization Methods (Private) 🔐
-- `_getComparator()`, `_getTypedConstructorNameLowerCase(value)`: Methods for object comparison and type identification. (Private)
-- `_isError(value)`, `_isArrayBuffer(value)`, `_isTypedArray(value)`: Type checking methods for errors, ArrayBuffers, and TypedArrays. (Private)
-- `_stringifyArrayBuffer(typedArray)`, `_stringifyTypedArray(typedArray)`, `_stringifyError(error)`: Methods for serializing various data types into strings. (Private)
-- `_stringifyThis(data)`: Method for serializing individual data items. (Private)
-- `_stringifyObject(obj)`, `_stringifyNumber(data)`, `_stringifyOther(data)`: Methods for serializing objects, numbers, and other data types. (Private)
+### Public Methods
+- `stringify(data)`: Converts data into a JSON string. \(Public\)
+- `pack(data)`: Packs data into a binary format. \(Public\)
+- `unpack(packedData)`: Unpacks data from its binary format back into the original format. \(Public\)
+- `parse(data)`: Parses a JSON string into the original data format. \(Public\)
 
-#### Serialization Method (Public) 🔓
-- `stringify(data)`: Serializes data into a JSON string. (Public)
+### Method Relationship Map
+- `stringify` ➡ `_stringifyThis` ➡ Various `_stringify*` methods.
+- `parse` ➡ `_parseThis` ➡ Various `_parse*` methods.
+- `pack` ➡ `_packThis` ➡ Various `_pack*` methods and `_createPackedData`.
+- `unpack` ➡ `_unpackThis` ➡ Various `_unpack*` methods.
 
-#### Deserialization Methods (Private) 🔐
-- `_parseThis(data, probablyDecode)`, `_parseObject(obj)`: Methods for parsing individual data items and objects. (Private)
-- `_parseNumber(encodedNumber)`, `_parseArrayBuffer(encodedString)`, `_parseTypedArray(encodedString)`, `_parseError(ref)`: Methods for parsing numbers, ArrayBuffers, TypedArrays, and errors. (Private)
+### Packing/Unpacking and Stringify/Parse Explanation
+- **Packing/Unpacking**: Data is packed into a binary format for efficient storage and transmission. The `pack` method prepares data for packing, and `unpack` restores it to the original format.
+- **Stringify/Parse**: The `stringify` method converts data into a JSON string, handling various data types and complex objects. The `parse` method reverses this process, converting the JSON string back to the original data format.
 
-#### Deserialization Method (Public) 🔓
-- `parse(data)`: Parses a JSON string into the original data format. (Public)
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
-#### Packing Methods (Private) 🔐
-- `_getBytePadding(length)`, `_packArrayBuffer(arrayBuffer)`, `_packTypedArray(typedArray)`, `_packError(error)`: Methods for packing ArrayBuffers, TypedArrays, and errors. (Private)
-- `_packObject(obj)`, `_packNumber(data)`, `_packOther(data)`: Methods for packing objects, numbers, and other data types. (Private)
+## Additional Notes
+- The class employs complex data handling strategies, including Base64 encoding/decoding and efficient memory management for large data sets.
+- It supports a wide range of data types and complex structures, ensuring versatility in serialization and deserialization.
+- The class is designed with a focus on performance and accuracy in data representation.
 
-#### Packing Method (Public) 🔓
-- `pack(data)`: Packs data into a binary format. (Public)
+![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
-#### Unpacking Methods (Private) 🔐
-- `_unpackThis(data, probablyDecode)`, `_unpackObject(obj)`: Methods for unpacking individual data items and objects. (Private)
-- `_unpackNumber(encodedNumber)`, `_unpackArrayBuffer(ref)`, `_unpackError(ref)`, `_unpackTypedArray(ref, typeInfo)`: Methods for unpacking numbers, ArrayBuffers, errors, and TypedArrays. (Private)
-
-#### Unpacking Method (Public) 🔓
-- `unpack(packedData)`: Unpacks data from its binary format back into the original data format. (Public)
-
-### Method Relationship Map 🗺️
-- Serializing and Deserializing: The class provides a comprehensive approach to handle various data types, offering methods for serializing and deserializing individual items, objects, and primitives.
-- Packing and Unpacking: It includes mechanisms to pack data into a binary format and subsequently unpack it, maintaining the integrity and structure of the original data.
-
-
-## Additional Notes 📝
-- Enhanced efficiency in data packing and unpacking, including alignment and padding considerations. In V0.8.0+ `.Stringify()` is now stable (sorting objects) and `.stringify() or .parse()` have performance roughly equals to 80% the native `JSON` object. 
 ## 🔗 References
 - Base64 Encoding/Decoding: [B64chromium Documentation](https://www.npmjs.com/package/chromium-base64)
 - Typed Arrays: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays)
