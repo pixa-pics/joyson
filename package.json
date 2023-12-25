@@ -1,6 +1,6 @@
 {
   "name": "joyson",
-  "version": "0.12.10",
+  "version": "0.12.11",
   "description": "JOYFUL JSON | A smarter approach to serialize more than JSON, faster than ever!",
   "devDependencies": {
     "path": "~0.12.7",

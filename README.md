@@ -242,15 +242,52 @@ console.log(packedData, unpackedData);
 | /abc/gimsuy          | ✅      | ✅     | ✅       | ❌     | ✅    | ❌   | ❌               |
 | **Score**            | 10/10   | 10/10  | 10/10    | 0/10   | 10/10 | 9/10 | 0/10            |
 
-## Efficiency
+
+### Detailed Analysis with Ratings
+
+#### BSON
+- **Loading Speed**: Very slow, longest time 800ms.
+- **Rating**:
+    - Encoding: 2.0/10
+    - Decoding: 2.5/10
+    - Longest: 1.0/10
+    - Average: 3.0/10
+    - Shortest: 4.0/10
+    - Total: 2.5/10
+
+#### Joyson
+- **Performance**: Exceptionally fast, longest time 3-4ms.
+- **Rating**:
+    - Encoding: 9.5/10
+    - Decoding: 9.5/10
+    - Longest: 9.5/10
+    - Average: 9.7/10
+    - Shortest: 9.8/10
+    - Total: 9.6/10
+
+#### Message Packer
+- **Initial Encoding Speed**: Initially slow but improves.
+- **Balanced Performance**: Post-initial usage shows good balance.
+- **Rating**:
+    - Encoding: 8.0/10 (initially lower, improves over time)
+    - Decoding: 8.5/10
+    - Longest: 8.0/10
+    - Average: 8.5/10
+    - Shortest: 9.0/10
+    - Total: 8.5/10
+
+### Conclusions
+- **BSON**: Best for specific ecosystems like MongoDB, but slow.
+- **Joyson**: Top choice for high-speed, efficient data processing.
+- **Message Packer**: Excellent for long-running applications with a balance between encoding and decoding post-initial usage.
 
 | Feature             | core-js | joyson (pack/unpack) | msgpackr      | cbor-x        | cborg         | bson           | structured-clone |
-|---------------------| --- |----------------------|---------------|---------------|---------------|----------------|------------------|
-| Average time (ms)   | 0.1391 | 0.7914               | 1.1096        | 1.5174        | 1.6761        | 9.4376         | 5.3649           |
-| Longest time (ms)   | 4.4 | 1.9                  | 35.8          | 44.5          | 49.4          | 1128.9         | 10.7             |
-| Shortest  time (ms) | 0 | 0.6                  | 0.5           | 0.8           | 1             | 4.6            | 4.7              |
-| Total  time (ms)    | 139.1 | 791.4 (100%)         | 1109.6 (140%) | 1517.4 (191%) | 1676.1 (211%) | 9437.6 (1193%) | 5364.9 (678%)    |
-| Used size (bytes)   | N/A | 41684                | 33983         | 29105         | 37715         | 43431          | 43276            |
+|---------------------|---------|----------------------|---------------|---------------|---------------|----------------|------------------|
+| Average time (ms)   | 0.1391  | 0.7914               | 1.1096        | 1.5174        | 1.6761        | 9.4376         | 5.3649           |
+| Longest time (ms)   | 4.4     | 1.9                  | 35.8          | 44.5          | 49.4          | 1128.9         | 10.7             |
+| Shortest time (ms)  | 0       | 0.6                  | 0.5           | 0.8           | 1             | 4.6            | 4.7              |
+| Total time (ms)     | 139.1   | 791.4 (100%)         | 1109.6 (140%) | 1517.4 (191%) | 1676.1 (211%) | 9437.6 (1193%) | 5364.9 (678%)    |
+| Used size (bytes)   | N/A     | 41684                | 33983         | 29105         | 37715         | 43431          | 43276            |
 
 ![SECTION](https://raw.githubusercontent.com/pixa-pics/joyson/main/section.png)
 
