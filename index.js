@@ -171,9 +171,9 @@ var JoyfulSerial = (function JoyfulSerial() {
             if(obj === null){
                 return [true, "\"data:joyson/null;\""];
             }else if(typeof obj.get == "function"){
-                return [true, "\"data:joyson/map;"+btoa(this._stringifyThis(Array.from(obj))[1])+"\""]
+                return [true, "\"data:joyson/map;"+btoa(this.stringify(Object.entries(Object.fromEntries(obj))))+"\""]
             }else if(typeof obj.delete == "function"){
-                return [true, "\"data:joyson/set;"+btoa(this._stringifyThis(Array.from(obj))[1])+"\""]
+                return [true, "\"data:joyson/set;"+btoa(this.stringify(Array.from(obj)))+"\""]
             }else  if (typeof obj.toISOString == "function") {
                 return [true, "\"data:joyson/date;" + ((obj.getTime() === NaN) ? "NaN\"" : obj.toISOString()) + "\""];
             }else if(typeof obj.exec == "function"){
@@ -263,9 +263,9 @@ var JoyfulSerial = (function JoyfulSerial() {
                         var [source, flags] = data.split(';')[1].split(":").map(atob);
                         return [true, new RegExp(source, flags)];
                     }else if(data.startsWith("data:joyson/map")) {
-                        return [true, new Map(JSON.parse(this._textDecoderFunction(this._b64Base64ToBytes(data.split(';')[1]))))];
+                        return [true, new Map(this.parse(this._textDecoderFunction(this._b64Base64ToBytes(data.split(';')[1]))))];
                     }else if(data.startsWith("data:joyson/set")){
-                        return [true, new Set(JSON.parse(this._textDecoderFunction(this._b64Base64ToBytes(data.split(';')[1]))))];
+                        return [true, new Set(this.parse(this._textDecoderFunction(this._b64Base64ToBytes(data.split(';')[1]))))];
                     }else if(data.startsWith("data:joyson/string")) {
                         return [true, atob(data.split(';')[1])];
                     }else if(data.startsWith("data:joyson/number")){
@@ -420,9 +420,9 @@ var JoyfulSerial = (function JoyfulSerial() {
             if(obj === null){
                 return [true, "data:joyson/null;"];
             }else if(typeof obj.get == "function"){
-                return [true, "data:joyson/map;"+this._b64BytesToBase64(this._textEncoder.encode(JSON.stringify(Array.from(obj))))]
+                return [true, "data:joyson/map;"+this._b64BytesToBase64(this._textEncoder.encode(this.stringify(Object.entries(Object.fromEntries(obj)))))]
             }else if(typeof obj.delete == "function"){
-                return [true, "data:joyson/set;"+this._b64BytesToBase64(this._textEncoder.encode(JSON.stringify(Array.from(obj))))]
+                return [true, "data:joyson/set;"+this._b64BytesToBase64(this._textEncoder.encode(this.stringify(Array.from(obj))))]
             }else  if (typeof obj.toISOString == "function") {
                 return [true, "data:joyson/date;"+(obj.toISOString() === NaN ? "NaN": obj.toISOString())]
             }else if(typeof obj.exec == "function"){
@@ -579,9 +579,9 @@ var JoyfulSerial = (function JoyfulSerial() {
                         var [source, flags] = data.split(';')[1].split(":").map(atob);
                         return [true, new RegExp(source, flags)];
                     }else if(data.startsWith("data:joyson/map")) {
-                        return [true, new Map(JSON.parse(atob(data.split(';')[1])))];
+                        return [true, new Map(this.parse(atob(data.split(';')[1])))];
                     }else if(data.startsWith("data:joyson/set")){
-                        return [true, new Set(JSON.parse(atob(data.split(';')[1])))];
+                        return [true, new Set(this.parse(atob(data.split(';')[1])))];
                     }else if(data.startsWith("data:joyson/string")){
                         return [true, atob(data.split(';')[1])];
                     }else if(data.startsWith("data:joyson/number")){
