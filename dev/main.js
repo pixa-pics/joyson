@@ -255,7 +255,7 @@ class JoyfulSerial {
             bufferByteLength += length;
         }
 
-        return this._packBufferTemp8.slice(0, bodyOffset+bufferByteLength);
+        return this._packBufferTemp8.subarray(0, bodyOffset+bufferByteLength);
     }
 
     _keyMustDecode(key) {
