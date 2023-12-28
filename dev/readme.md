@@ -1,43 +1,36 @@
-# Extended Explanation of JoyfulSerial Components
+# JoyfulSerial Serialization Library Overview
 
-## Linking of `DataProcessEngine` to `JoyfulSerial` Main Class
+![](https://raw.githubusercontent.com/pixa-pics/joyson/main/schema.png)
+The JoyfulSerial library consists of three main components: `JoyfulSerial`, `DataProcessEngine`, and `ArrayBufferIDManager`. These classes work together to efficiently serialize and deserialize complex data structures, including handling of different types of data and array buffers.
 
-### Callbacks
+## Interaction Between Classes
 
-- **Mechanism**: The `JoyfulSerial` class utilizes callbacks to integrate with the `DataProcessEngine`.
-- **Purpose**: These callbacks allow for a flexible and dynamic interaction between the main serialization/deserialization processes and the underlying data processing engine.
-- **Implementation**:
-    - `JoyfulSerial` defines methods like `encodeOtherBound`, `decodeOtherBound`, `stringifyBound`, and `parseBound`.
-    - These methods are bound to the instance of `JoyfulSerial` and passed to `DataProcessEngine` during its initialization.
-    - The engine then uses these callbacks for specialized encoding and decoding tasks, which are not part of its standard processing.
+- `JoyfulSerial`: This is the primary interface for the serialization and deserialization process. It uses the `DataProcessEngine` to handle the encoding and decoding of various data types. When `JoyfulSerial` encounters a data type or structure that it does not natively understand, such as nested objects, it recursively calls `DataProcessEngine` to process each property's value.
 
-### Benefits
+- `DataProcessEngine`: Acts as the central hub for transforming data into a serialized format and vice versa. It uses type detection and custom encoding/decoding strategies to convert data types like numbers, strings, booleans, and more into a serialized string. It also handles complex objects by delegating to `JoyfulSerial` for recursive processing.
 
-- **Flexibility**: This design allows `JoyfulSerial` to extend or modify the encoding/decoding logic without altering the core engine.
-- **Separation of Concerns**: It keeps the data processing logic in `DataProcessEngine` clean and focused, while `JoyfulSerial` handles the higher-level serialization logic.
+- `ArrayBufferIDManager`: This class is responsible for managing array buffers. It keeps track of different and identical array buffers within typed arrays, allowing for efficient memory usage and the ability to share buffers as needed based on user requirements.
 
-## Need for `ArrayBufferIDManager`
+## Encoding and Decoding of Data
 
-### Shared Buffers
+- Encoding: `JoyfulSerial` takes the input data and checks the type. If it's a basic type, it uses `DataProcessEngine` directly to encode it. For complex or nested objects, `JoyfulSerial` recursively navigates the object's properties, encoding each one using `DataProcessEngine`.
 
-- **Problem**: Typed arrays in JavaScript, like `Uint8Array` or `Float32Array`, are views over an `ArrayBuffer`. There can be multiple views over the same buffer, but managing this sharing efficiently and safely is complex.
-- **Solution**: `ArrayBufferIDManager` is designed to manage these buffers, assigning unique IDs to each buffer and allowing typed arrays to share the underlying `ArrayBuffer` without data corruption or overlap issues.
+- Decoding: Upon receiving a serialized string, `JoyfulSerial` passes it to `DataProcessEngine` to decode each piece of data back into its original JavaScript objects or primitive types.
 
-### Functionality
+## Handling of Errors
 
-- **ID Management**:
-    - Each `ArrayBuffer` is assigned a unique ID, making it easy to reference and retrieve.
-    - This is crucial when dealing with serialization and deserialization, where buffer identity must be preserved across processes.
-- **Insert and Retrieve**:
-    - The `insert` method allows storing an `ArrayBuffer` with or without a specified ID, managing the case of sharing automatically.
-    - The `retrieve` method fetches the `ArrayBuffer` using its ID, crucial for reconstructing typed arrays accurately during deserialization.
+To encode an error, `DataProcessEngine` identifies the error type and message. It then serializes this information into a format that includes the error constructor's name and the error message, both encoded in Base64. This allows for accurate reconstruction of the error upon decoding.
 
-### Use Case in `DataProcessEngine`
+## Example of Error Encoding
 
-- **Encoding/Decoding**:
-    - When encoding, `DataProcessEngine` may encounter typed arrays that need to be serialized. `ArrayBufferIDManager` ensures that the underlying buffer is correctly identified and stored.
-    - During decoding, the engine uses the ID to fetch the exact `ArrayBuffer` and reconstruct the typed array, preserving its state and data accurately.
+Here's a step-by-step breakdown of how an error is encoded:
+
+1. Detect the error and its properties (name and message).
+2. Convert the name and message into Base64 strings.
+3. Concatenate the encoded name and message with a separator (typically a colon ":").
+4. Prefix the result with an identifier indicating it's an error type.
+5. Serialize the entire structure as a string that can later be decoded back into an error object with the same name and message.
 
 ## Conclusion
 
-The synergy between `DataProcessEngine`, `JoyfulSerial`, and `ArrayBufferIDManager` provides a robust framework for handling complex serialization and deserialization tasks in JavaScript. This setup ensures efficient data processing, accurate data reconstruction, and the flexibility to handle various data types effectively.
+The `JoyfulSerial` library, with its `DataProcessEngine` and `ArrayBufferIDManager`, provides a comprehensive system for serializing and deserializing complex data structures, efficiently handling various data types, and tracking array buffers. This ensures data integrity and memory efficiency throughout the serialization process.
