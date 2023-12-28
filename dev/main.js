@@ -3,8 +3,8 @@ import { B64chromium } from "chromium-base64";
 import DataProcessEngine from "./engine";
 
 class JoyfulSerial {
-
     constructor() {
+        "use strict";
         // Initialize an empty array to store serialized data and a byte offset.
         this._packBufferTemp8 = new Uint8Array(15000);
         this._headerByteLength = 0;
@@ -99,6 +99,7 @@ class JoyfulSerial {
     }
 
     encodeOther(data, isShortBase){
+        "use strict";
         if(isShortBase){
             return this._packObject(data)
         }else {
@@ -107,6 +108,7 @@ class JoyfulSerial {
     }
 
     decodeOther(dataStr, isShortBase){
+        "use strict";
         if(isShortBase){
             return this._unpackObject(dataStr)
         }else {
@@ -129,8 +131,8 @@ class JoyfulSerial {
         return JSON.stringify(stringified);
     }
 
-    stringify(data){ return this._stringify(data, false)}
-    _innerStringify(data){ return this._stringify(data, true)}
+    stringify(data){ "use strict"; return this._stringify(data, false)}
+    _innerStringify(data){ "use strict"; return this._stringify(data, true)}
 
     // Private method to parse an object, iterating over its properties.
     _parseObject(obj) {
@@ -175,8 +177,8 @@ class JoyfulSerial {
 
         return this.engine.decode(JSON.parse(parsed.header));
     }
-    parse(data){ return this._parse(data, false); }
-    _innerParse(data){ return this._parse(data, true); }
+    parse(data){ "use strict"; return this._parse(data, false); }
+    _innerParse(data){ "use strict"; return this._parse(data, true); }
 
     // Private method to pack an object, iterating over its properties.
     _packObject(obj) {
