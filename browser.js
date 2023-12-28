@@ -1,6 +1,5 @@
-var JOYSON = require("./index.js").default;
-
-if(typeof window === "undefined"){
+import JOYSON from "./index"
+if(typeof window == "undefined"){
     self.JOYSON = JOYSON;
 }else {
     window.JOYSON = JOYSON;
