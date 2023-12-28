@@ -1,6 +1,6 @@
 {
   "name": "joyson",
-  "version": "0.12.12",
+  "version": "0.14.0",
   "description": "JOYFUL JSON | A smarter approach to serialize more than JSON, faster than ever!",
   "devDependencies": {
     "path": "~0.12.7",
@@ -12,7 +12,8 @@
     "@babel/preset-env": "^7.23.6"
   },
   "dependencies": {
-    "chromium-base64": "^0.5.0"
+    "chromium-base64": "^0.5.0",
+    "b64hash": "^0.1.0"
   },
   "build": {},
   "author": "Affolter Matias",

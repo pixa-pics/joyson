@@ -26,8 +26,6 @@
 // Import the B64chromium class from the chromium-base64 module
 import { B64chromium } from "chromium-base64";
 
-
-
 var JoyfulSerial = (function JoyfulSerial() {
     "use strict";
     class JoyfulSerial {
