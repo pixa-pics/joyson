@@ -1,9 +1,11 @@
+import compressEngine from "./compress";
+
 /**
  * ArrayBufferIDManager is responsible for managing ArrayBuffers with unique identifiers.
  * It uses a WeakMap to associate ArrayBuffers with identifiers, allowing efficient garbage collection.
  */
 class ArrayBufferIDManager {
-    constructor() {
+    constructor(useCompress) {
         "use strict";
         // WeakMap to hold ArrayBuffer references with their IDs
         this._buffers = new WeakMap();
@@ -11,6 +13,8 @@ class ArrayBufferIDManager {
         this._store = {};
         // Counter for generating new IDs
         this._nextId = 0;
+        this._compress = useCompress ? compressEngine.compress.bind(compressEngine): function (d){return d;};
+        this._decompress = useCompress ? compressEngine.decompress.bind(compressEngine): function (d){return d;};
     }
 
     /**
@@ -78,7 +82,17 @@ class ArrayBufferIDManager {
      */
     retrieveAll() {
         "use strict";
-        return this._store;
+        var store = {};
+
+        var entries = Object.entries(this._store);
+        for (let i = 0; i < entries.length; i++) {
+            var [key, value] = entries[i];
+
+            value = this._compress(new Uint8Array(value)).buffer;
+            store[parseInt(key)] = value;
+        }
+
+        return store;
     }
 
     /**
@@ -90,6 +104,9 @@ class ArrayBufferIDManager {
         var entries = Object.entries(store);
         for (let i = 0; i < entries.length; i++) {
             var [key, value] = entries[i];
+
+            value = this._decompress(new Uint8Array(value)).buffer;
+
             this.insert(value, parseInt(key));
         }
     }

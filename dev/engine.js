@@ -7,7 +7,7 @@ import ArrayBufferIDManager from "./buffer";
  * This class provides mechanisms to convert different data types to a specific format and revert them back to their original form.
  */
 class DataProcessEngine {
-    constructor(baseStr, shortBaseStr, encapsulateFunc, hasher, encodeObjectOut, decodeObjectOut, stringifyOut, parseOut) {
+    constructor(baseStr, shortBaseStr, encapsulateFunc, hasher, encodeObjectOut, decodeObjectOut, stringifyOut, parseOut, useCompressor) {
         // Initializations with fallbacks
         this._hasher = new B64Hash(1);
 
@@ -35,7 +35,7 @@ class DataProcessEngine {
         this._initializeErrorConstructors();
 
         // ArrayBufferIDManager instance for managing array buffers
-        this.arrayBufferIDManager = new ArrayBufferIDManager();
+        this.arrayBufferIDManager = new ArrayBufferIDManager(useCompressor);
 
         // Buffer constructors map
         this._initializeBufferConstructors();
@@ -517,4 +517,5 @@ class DataProcessEngine {
         return this.encodeObjectOut(data, useShortBase);
     }
 }
+
 export default DataProcessEngine;

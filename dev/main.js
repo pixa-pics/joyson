@@ -2,7 +2,9 @@
 import { B64chromium } from "chromium-base64";
 import DataProcessEngine from "./engine";
 
+
 class JoyfulSerial {
+
     constructor() {
         "use strict";
         // Initialize an empty array to store serialized data and a byte offset.
@@ -25,6 +27,11 @@ class JoyfulSerial {
         this.stringifyBound = this._innerStringify.bind(this);
         this.parseBound = this._innerParse.bind(this);
 
+        this.use_compressor = false;
+        this._setEngine();
+    }
+
+    _setEngine(){
         this.engine = new DataProcessEngine(
             undefined,
             undefined,
@@ -33,9 +40,18 @@ class JoyfulSerial {
             this.encodeOtherBound,
             this.decodeOtherBound,
             this.stringifyBound,
-            this.parseBound
-
+            this.parseBound,
+            this.use_compressor
         );
+    }
+
+    get compress() {
+        return this.use_compressor;
+    }
+
+    set compress(v) {
+        this.use_compressor = Boolean(v);
+        this._setEngine();
     }
 
     _getComparator(){
@@ -311,5 +327,4 @@ class JoyfulSerial {
         return this.engine.decode(header, true);
     }
 }
-
 export default JoyfulSerial;
